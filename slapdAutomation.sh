@@ -36,9 +36,6 @@ sudo apt-get install expect
 sudo apt-get install expect-dev
 #!/usr/bin/expect
 set pass "password"
-
-spawn /usr/bin/passwd
-
 expect "password: "
 send "$pass"
 
