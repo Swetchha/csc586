@@ -1,6 +1,6 @@
 #! /bin/bash
 
-#Install openLDAP server quietly
+# Install openLDAP server quietly
 export DEBIAN_FRONTEND=noninteractive
 
 echo -e " 
@@ -30,4 +30,16 @@ sudo dpkg-reconfigure slapd
 
 # Enable firewall rule
 sudo ufw allow ldap
+
+# Populate LDAP
+ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -W -f basedn.ldif
+
+# Generate password hash
+slappasswd -h {SSHA} -s rammy
+
+# Populate LDAP
+ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -W -f users.ldif
+
+# Test LDAP
+ldapsearch -x -LLL -b dc=clemson,dc=cloudlab,dc=us 'uid=student' cn gidNumber
 
