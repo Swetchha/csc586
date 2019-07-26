@@ -22,8 +22,9 @@ slapd slapd/invalid_config boolean true
 " | sudo debconf-set-selections
 
 sudo apt-get update
+
 # Grab slapd and ldap-utils (pre-seeded)
-apt-get install -y slapd ldap-utils phpldapadmin
+sudo apt-get install -y slapd ldap-utils
 
 # Must reconfigure slapd for it to work properly 
 sudo dpkg-reconfigure slapd
