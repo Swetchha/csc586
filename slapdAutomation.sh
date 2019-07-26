@@ -21,6 +21,9 @@ slapd slapd/no_configuration boolean false
 slapd slapd/invalid_config boolean true
 " | sudo debconf-set-selections
 
+BASE    dc=clemson,dc=cloudlab,dc=us
+URI     ldap://192.68.1.1 ldap://192.68.1.1:666
+
 sudo apt-get update
 
 # Grab slapd and ldap-utils (pre-seeded)
@@ -49,4 +52,4 @@ ldapsearch -x -LLL -b dc=clemson,dc=cloudlab,dc=us 'uid=student' cn gidNumber
 
 # Setup SSO on client
 sudo apt-get update
-sudo apt install -y libnss-ldap libpam-ldap ldap-utils
+sudo apt install -y libnss-ldap -y libpam-ldap ldap-utils
