@@ -32,8 +32,8 @@ sudo dpkg-reconfigure slapd
 # Enable firewall rule
 sudo ufw allow ldap
 
-# Populate LDAP
-ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -W -f basedn.ldif
+sudo apt-get install expect
+sudo apt-get install expect-dev
 #!/usr/bin/expect
 set pass "password"
 
@@ -41,6 +41,10 @@ spawn /usr/bin/passwd
 
 expect "password: "
 send "$pass"
+
+# Populate LDAP
+ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -W -f basedn.ldif
+
 
 # Generate password hash
 slappasswd -h {SSHA} -s rammy
