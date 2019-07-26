@@ -43,5 +43,3 @@ ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -W -f users.ldif
 
 # Test LDAP
 ldapsearch -x -LLL -b dc=clemson,dc=cloudlab,dc=us 'uid=student' cn gidNumber
-
-# Setup SSO on client
