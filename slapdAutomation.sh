@@ -42,7 +42,6 @@ send "$pass"
 # Populate LDAP
 ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -W -f basedn.ldif
 
-
 # Generate password hash
 slappasswd -h {SSHA} -s rammy
 
@@ -51,3 +50,7 @@ ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -W -f users.ldif
 
 # Test LDAP
 ldapsearch -x -LLL -b dc=clemson,dc=cloudlab,dc=us 'uid=student' cn gidNumber
+
+# Setup SSO on client
+sudo apt-get update
+sudo apt install -y libnss-ldap libpam-ldap ldap-utils
