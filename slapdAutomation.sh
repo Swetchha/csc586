@@ -29,14 +29,8 @@ sudo apt-get install -y slapd ldap-utils
 # Must reconfigure slapd for it to work properly 
 sudo dpkg-reconfigure slapd
 
-# Replace the ldap.conf file
-chmod 777 /etc/ldap/ldap.conf 
-
-cat <<'EOF' > /etc/ldap/ldap.conf
-BASE    dc=clemson,dc=cloudlab,dc=us
-URI     ldap://192.68.1.1 ldap://192.68.1.1:666
-EOF
-chmod 744 /etc/ldap/ldap.conf 
+# Provide hostname of node in the ldap.conf file
+sudo sed -i 's|ldapi:///|ldap://192.168.1.1|g' /etc/ldap.conf
 
 # Enable firewall rule
 sudo ufw allow ldap
