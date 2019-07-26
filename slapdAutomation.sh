@@ -34,6 +34,13 @@ sudo ufw allow ldap
 
 # Populate LDAP
 ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -W -f basedn.ldif
+#!/usr/bin/expect
+set pass "password"
+
+spawn /usr/bin/passwd
+
+expect "password: "
+send "$pass"
 
 # Generate password hash
 slappasswd -h {SSHA} -s rammy
