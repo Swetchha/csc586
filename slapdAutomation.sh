@@ -34,19 +34,15 @@ sudo ufw allow ldap
 
 sudo apt-get install expect
 sudo apt-get install expect-dev
-#!/usr/bin/expect
-set pass "password"
-expect "password: "
-send "$pass"
 
 # Populate LDAP
-ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w password -f basedn.ldif
+ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w passwd -f basedn.ldif
 
 # Generate password hash
 slappasswd -h {SSHA} -s rammy
 
 # Populate LDAP
-ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w password -f users.ldif
+ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w passwd -f users.ldif
 
 # Test LDAP
 ldapsearch -x -LLL -b dc=clemson,dc=cloudlab,dc=us 'uid=student' cn gidNumber
