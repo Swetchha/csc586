@@ -83,7 +83,7 @@ sudo apt-get update
 sudo apt install -y libnss-ldap -y libpam-ldap ldap-utils
 
 # Provide hostname of node in the ldap.conf file
-#sudo sed -i 's|ldapi:///|ldap://192.168.1.1|g' /etc/ldap.conf
+sudo sed -i 's|ldapi:///|ldap://192.168.1.1|g' /etc/ldap.conf
 
 # Enable LDAP profile for NSS
 sudo sed -i 's/systemd/systemd ldap/g' /etc/nsswitch.conf
