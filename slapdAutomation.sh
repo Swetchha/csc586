@@ -49,7 +49,7 @@ cn: student
 displayName: student
 uidNumber: 10000
 gidNumber: 5000
-userPassword: $PASS
+userPassword: {SSHA}$PASS
 gecos: Golden Ram
 loginShell: /bin/dash
 homeDirectory: /home/student
