@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# Install openLDAP server quietly
+# Install openLDAP server non-interactively
 export DEBIAN_FRONTEND=noninteractive
 
 echo -e " 
