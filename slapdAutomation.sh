@@ -80,7 +80,7 @@ ldap-auth-config        ldap-auth-config/move-to-debconf        boolean true
 
 # Setup SSO on client
 sudo apt-get update
-sudo apt install -y libnss-ldap -y libpam-ldap ldap-utils
+sudo apt install -y libnss-ldapd -y libpam-ldap ldap-utils
 
 # Provide hostname of node in the ldap.conf file
 sudo sed -i 's|ldapi:///|ldap://192.168.1.1|g' /etc/ldap.conf
