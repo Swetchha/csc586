@@ -32,9 +32,6 @@ sudo dpkg-reconfigure slapd
 # Enable firewall rule
 sudo ufw allow ldap
 
-sudo apt-get install expect
-sudo apt-get install expect-dev
-
 # Populate LDAP
 ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w "password" -f basedn.ldif
 
@@ -57,7 +54,6 @@ gecos: Golden Ram
 loginShell: /bin/dash
 homeDirectory: /home/student
 EOF
-
 
 # Populate LDAP
 ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w "password" -f users.ldif 
