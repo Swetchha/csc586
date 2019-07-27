@@ -39,7 +39,25 @@ sudo apt-get install expect-dev
 ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w "password" -f basedn.ldif
 
 # Generate password hash
-slappasswd -h {SSHA} -s rammy
+PASS=$(slappasswd -s rammy)
+cat <<EOF >/local/repository/users.ldif
+dn: uid=student,ou=People,dc=clemson,dc=cloudlab,dc=us
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: student
+sn: Ram
+givenName: Golden
+cn: student
+displayName: student
+uidNumber: 10000
+gidNumber: 5000
+userPassword: $PASS
+gecos: Golden Ram
+loginShell: /bin/dash
+homeDirectory: /home/student
+EOF
+
 
 # Populate LDAP
 ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w "password" -f users.ldif 
@@ -47,12 +65,29 @@ ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w "password" -f users.ldif
 # Test LDAP
 ldapsearch -x -LLL -b dc=clemson,dc=cloudlab,dc=us 'uid=student' cn gidNumber
 
+echo -e " 
+ldap-auth-config        ldap-auth-config/rootbindpw     password password
+ldap-auth-config        ldap-auth-config/bindpw password password
+ldap-auth-config        ldap-auth-config/binddn string  cn=proxyuser,dc=example,dc=net
+ldap-auth-config        ldap-auth-config/override       boolean true
+ldap-auth-config        ldap-auth-config/pam_password   select  md5
+ldap-auth-config        ldap-auth-config/dblogin        boolean false
+slapd   slapd/allow_ldap_v2     boolean false
+libpam-runtime  libpam-runtime/profiles multiselect     unix, ldap, systemd, capability
+ldap-auth-config        ldap-auth-config/ldapns/base-dn string  dc=clemson,dc=cloudlab,dc=us
+ldap-auth-config        ldap-auth-config/dbrootlogin    boolean true
+ldap-auth-config        ldap-auth-config/ldapns/ldap_version    select  3
+ldap-auth-config        ldap-auth-config/rootbinddn     string  cn=admin,dc=clemson,dc=cloudlab,dc=us
+ldap-auth-config        ldap-auth-config/ldapns/ldap-server     string  ldap://192.168.1.1
+ldap-auth-config        ldap-auth-config/move-to-debconf        boolean true
+" | sudo debconf-set-selections
+
 # Setup SSO on client
 sudo apt-get update
 sudo apt install -y libnss-ldap -y libpam-ldap ldap-utils
 
 # Provide hostname of node in the ldap.conf file
-sudo sed -i 's|ldapi:///|ldap://192.168.1.1|g' /etc/ldap.conf
+#sudo sed -i 's|ldapi:///|ldap://192.168.1.1|g' /etc/ldap.conf
 
 # Enable LDAP profile for NSS
 sudo sed -i 's/systemd/systemd ldap/g' /etc/nsswitch.conf
