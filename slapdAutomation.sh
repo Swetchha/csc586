@@ -29,9 +29,6 @@ sudo apt-get install -y slapd ldap-utils
 # Must reconfigure slapd for it to work properly 
 sudo dpkg-reconfigure slapd
 
-# Provide hostname of node in the ldap.conf file
-sudo sed -i 's|ldapi:///|ldap://192.168.1.1|g' /etc/ldap.conf
-
 # Enable firewall rule
 sudo ufw allow ldap
 
@@ -53,6 +50,9 @@ ldapsearch -x -LLL -b dc=clemson,dc=cloudlab,dc=us 'uid=student' cn gidNumber
 # Setup SSO on client
 sudo apt-get update
 sudo apt install -y libnss-ldap -y libpam-ldap ldap-utils
+
+# Provide hostname of node in the ldap.conf file
+sudo sed -i 's|ldapi:///|ldap://192.168.1.1|g' /etc/ldap.conf
 
 # Enable LDAP profile for NSS
 sudo sed -i 's/systemd/systemd ldap/g' /etc/nsswitch.conf
