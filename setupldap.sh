@@ -32,6 +32,8 @@ sudo dpkg-reconfigure slapd
 # Enable firewall rule
 sudo ufw allow ldap
 
+sudo apt install apache2
+
 # Populate LDAP
 ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w password -f basedn.ldif
 
