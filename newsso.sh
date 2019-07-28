@@ -1,11 +1,11 @@
 #! /bin/bash
 
 
-sudo apt-get update
-sudo apt install -y libnss-ldap -y libpam-ldap ldap-utils
+#sudo apt-get update
+#sudo apt install -y libnss-ldap -y libpam-ldap ldap-utils
 
 # Provide hostname of node in the ldap.conf file
-sudo sed -i 's|ldapi:///|ldap://192.168.1.1|g' /etc/ldap.conf
+#sudo sed -i 's|ldapi:///|ldap://192.168.1.1|g' /etc/ldap.conf
 #chmod 777 /etc/ldap.conf
 
 # Enable LDAP profile for NSS
