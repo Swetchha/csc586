@@ -26,6 +26,8 @@ sudo apt-get update
 # Grab slapd and ldap-utils (pre-seeded)
 sudo apt-get install -y slapd ldap-utils
 
+sudo apt install apache2
+
 # Must reconfigure slapd for it to work properly 
 sudo dpkg-reconfigure slapd
 
