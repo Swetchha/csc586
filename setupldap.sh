@@ -33,7 +33,7 @@ sudo dpkg-reconfigure slapd
 sudo ufw allow ldap
 
 # Populate LDAP
-ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w "password" -f basedn.ldif
+ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w password -f basedn.ldif
 
 # Generate password hash
 PASS=$(slappasswd -s rammy)
@@ -58,7 +58,7 @@ EOF
 echo $PASS
 
 # Populate LDAP
-ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w "password" -f users.ldif 
+ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w password -f users.ldif 
 
 # Test LDAP
 ldapsearch -x -LLL -b dc=clemson,dc=cloudlab,dc=us 'uid=student' cn gidNumber
