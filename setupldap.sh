@@ -42,7 +42,7 @@ echo "check point ends here"
 ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w password -f basedn.ldif
 
 # Enable firewall rule
-#sudo ufw allow ldap
+sudo ufw allow ldap
 
 # Generate password hash
 PASS=$(slappasswd -s rammy)
