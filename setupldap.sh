@@ -8,6 +8,8 @@ slapd slapd/password1 password password
 slapd slapd/internal/adminpw password password
 slapd slapd/internal/generated_adminpw password password
 slapd slapd/password2 password password
+slapd slapd/root_password password password
+slapd slapd/root_password_again password password
 slapd slapd/unsafe_selfwrite_acl note
 slapd slapd/purge_database boolean false
 slapd slapd/domain string clemson.cloudlab.us
@@ -17,6 +19,7 @@ slapd slapd/move_old_database boolean false
 slapd slapd/backend select MDB
 slapd shared/organization string clemson.cloudlab.us
 slapd slapd/dump_database_destdir string /var/backups/slapd-VERSION
+slapd slapd/allow_ldap_v2 boolean false
 slapd slapd/no_configuration boolean false
 slapd slapd/dump_database select when needed
 slapd slapd/password_mismatch note
@@ -27,22 +30,16 @@ sudo apt-get update
 # Grab slapd and ldap-utils (pre-seeded)
 sudo apt-get install -y slapd ldap-utils
 
-#sudo apt install apache2
-
 # Must reconfigure slapd for it to work properly 
 echo "check Point starts here"
 sudo dpkg-reconfigure slapd
 echo "check point ends here"
 
-
-
-#sudo apt install apache2
+# Enable firewall rule
+sudo ufw allow ldap
 
 # Populate LDAP
 ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w password -f basedn.ldif
-
-# Enable firewall rule
-sudo ufw allow ldap
 
 # Generate password hash
 PASS=$(slappasswd -s rammy)
