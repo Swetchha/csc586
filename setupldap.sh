@@ -26,20 +26,22 @@ sudo apt-get update
 # Grab slapd and ldap-utils (pre-seeded)
 sudo apt-get install -y slapd ldap-utils
 
-sudo apt install apache2
+#sudo apt install apache2
 
 # Must reconfigure slapd for it to work properly 
 echo "check Point starts here"
 sudo dpkg-reconfigure slapd
 echo "check point ends here"
 
-# Enable firewall rule
-sudo ufw allow ldap
+
 
 #sudo apt install apache2
 
 # Populate LDAP
 ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w password -f basedn.ldif
+
+# Enable firewall rule
+sudo ufw allow ldap
 
 # Generate password hash
 PASS=$(slappasswd -s rammy)
