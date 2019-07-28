@@ -55,6 +55,8 @@ loginShell: /bin/dash
 homeDirectory: /home/student
 EOF
 
+echo $PASS
+
 # Populate LDAP
 ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w "password" -f users.ldif 
 
