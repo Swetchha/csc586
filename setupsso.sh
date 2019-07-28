@@ -21,10 +21,10 @@ ldap-auth-config        ldap-auth-config/move-to-debconf        boolean true
 " | sudo debconf-set-selections
 
 sudo apt-get update
-sudo apt install -y libnss-ldapd -y libpam-ldap ldap-utils
+sudo apt install -y libnss-ldapd libpam-ldap ldap-utils
 
 # Provide hostname of node in the ldap.conf file
-sudo sed -i 's|ldapi:///|ldap://192.168.1.1|g' /etc/ldap.conf
+#sudo sed -i 's|ldapi:///|ldap://192.168.1.1|g' /etc/ldap.conf
 
 # Enable LDAP profile for NSS
 sudo sed -i 's/systemd/systemd ldap/g' /etc/nsswitch.conf
