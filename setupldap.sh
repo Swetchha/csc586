@@ -31,9 +31,7 @@ sudo apt-get update
 sudo apt-get install -y slapd ldap-utils
 
 # Must reconfigure slapd for it to work properly 
-echo "check Point starts here"
 sudo dpkg-reconfigure slapd
-echo "check point ends here"
 
 # Enable firewall rule
 sudo ufw allow ldap
@@ -60,8 +58,6 @@ gecos: Golden Ram
 loginShell: /bin/dash
 homeDirectory: /home/student
 EOF
-
-echo $PASS
 
 # Populate LDAP
 ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w password -f users.ldif 
