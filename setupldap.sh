@@ -33,8 +33,8 @@ sudo apt-get install -y slapd ldap-utils
 # Must reconfigure slapd for it to work properly 
 sudo dpkg-reconfigure slapd
 
-# Enable firewall rule
-sudo ufw allow ldap
+# Enable firewall rule 
+sudo ufw allow ldap 
 
 # Populate LDAP
 ldapadd -x -D cn=admin,dc=clemson,dc=cloudlab,dc=us -w password -f basedn.ldif
