@@ -1,11 +1,26 @@
 #! /bin/bash
 
+echo -e " 
+ldap-auth-config        ldap-auth-config/rootbindpw     password abcd123
+ldap-auth-config        ldap-auth-config/bindpw password abcd123
+ldap-auth-config        ldap-auth-config/override       boolean true
+ldap-auth-config        ldap-auth-config/pam_password   select  md5
+ldap-auth-config        ldap-auth-config/binddn string  cn=proxyuser,dc=example,dc=net
+ldap-auth-config        ldap-auth-config/dblogin        boolean false
+ldap-auth-config        ldap-auth-config/ldapns/base-dn string  dc=clemson,dc=cloudlab,dc=us
+ldap-auth-config        ldap-auth-config/dbrootlogin    boolean true
+ldap-auth-config        ldap-auth-config/ldapns/ldap_version    select  3
+ldap-auth-config        ldap-auth-config/rootbinddn     string  cn=admin,dc=clemson,dc=cloudlab,dc=us
+ldap-auth-config        ldap-auth-config/ldapns/ldap-server     string  ldap://192.168.1.1
+ldap-auth-config        ldap-auth-config/move-to-debconf        boolean true
+" | sudo debconf-set-selections
+
 
 #sudo apt-get update
-#sudo apt install -y libnss-ldap -y libpam-ldap ldap-utils
+sudo apt install -y libnss-ldapd -y libpam-ldap ldap-utils
 
 # Provide hostname of node in the ldap.conf file
-#sudo sed -i 's|ldapi:///|ldap://192.168.1.1|g' /etc/ldap.conf
+sudo sed -i 's|ldapi:///|ldap://192.168.1.1|g' /etc/ldap.conf
 #chmod 777 /etc/ldap.conf
 
 # Enable LDAP profile for NSS
