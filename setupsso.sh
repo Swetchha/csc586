@@ -1,7 +1,7 @@
     
 #! /bin/bash
 
-# Install SSOon client quietly
+# Install SSO on client quietly
 export DEBIAN_FRONTEND=noninteractive
 echo -e " 
 ldap-auth-config        ldap-auth-config/rootbindpw     password password
