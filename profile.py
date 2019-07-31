@@ -30,14 +30,14 @@ for i in range(2):
   link.addInterface(iface)
   
   for i in range(2):
-  if i == 0:
-    node = request.XenVM("ldapserver") 
-    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/setupldap.sh"))
-    node.addService(pg.Execute(shell="sh", command="/local/repository/setupldap.sh"))
-  else:
-    node = request.XenVM("ldapclient")
-    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/setupsso.sh"))
-    node.addService(pg.Execute(shell="sh", command="/local/repository/setupsso.sh"))
+    if i == 0:
+      node = request.XenVM("ldapserver") 
+      node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/setupldap.sh"))
+      node.addService(pg.Execute(shell="sh", command="/local/repository/setupldap.sh"))
+    else:
+      node = request.XenVM("ldapclient")
+      node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/setupsso.sh"))
+      node.addService(pg.Execute(shell="sh", command="/local/repository/setupsso.sh"))
 # Print the RSpec to the enclosing page.
 pc.printRequestRSpec(request)
 
